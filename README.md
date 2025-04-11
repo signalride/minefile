@@ -4,7 +4,8 @@ Extract all files within an pcap file
 python3 main.py {file-name} {extension's} 
 ```
 
-### eXample
+### eXample 
+**No extension means all**
 ```bash
 python3 main.py asd.pcap html pdf bmp
 ```
