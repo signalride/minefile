@@ -6,7 +6,7 @@ python3 main.py {file-name} {extension's}
 
 ### eXample
 ```bash
-python3 main.py asd.pcap html,pdf
+python3 main.py asd.pcap html pdf bmp
 ```
 
 
