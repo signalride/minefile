@@ -1,7 +1,8 @@
 # minefile
 Extract all files within an pcap file
 ### SUPPORTED_TYPES
-```json{
+```json
+{
     # Documents
     'application/pdf': 'pdf',
     'application/msword': 'doc',
