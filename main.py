@@ -6,6 +6,7 @@ import hashlib
 import re
 from collections import defaultdict
 from io import BytesIO
+import sys
 
 # Initialize magic file type detector
 file_magic = magic.Magic(mime=True)
@@ -110,8 +111,9 @@ def reassemble_tcp_stream(packets):
                 streams[session] += bytes(pkt[Raw])
     return streams
 
-def extract_files(pcap_file, output_dir="extracted_files/"):
-    output_dir = output_dir + pcap_file.split("/")[-1].split(".")[0] + "/"
+def extract_files(pcap_file, output_dir="extracted_files/", extensions=None):
+    pcap_base = os.path.splitext(os.path.basename(pcap_file))[0]
+    output_dir = os.path.join(output_dir, pcap_base) + "/"
     os.makedirs(output_dir, exist_ok=True)
     file_count = defaultdict(int)
     unique_hashes = set()  # Track unique file hashes
@@ -130,9 +132,10 @@ def extract_files(pcap_file, output_dir="extracted_files/"):
             continue
             
         if file_ext:
+            if extensions is not None and file_ext not in extensions:
+                continue
             file_hash = hashlib.sha256(content).hexdigest()
             
-            # Skip if we've already seen this exact content
             if file_hash in unique_hashes:
                 continue
                 
@@ -145,8 +148,37 @@ def extract_files(pcap_file, output_dir="extracted_files/"):
                 f.write(content)
             print(f"Extracted valid {file_ext.upper()} file: {out_name}")
 
-import sys
+
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <pcap_file> [extensions...]")
+        sys.exit(1)
+    
     pcap_file = sys.argv[1]
-    extract_files(pcap_file)
+    selected_extensions = None
+    
+    if len(sys.argv) > 2:
+        exts_input = [ext.lstrip('.').lower() for ext in sys.argv[2:]]
+        valid_exts = []
+        invalid_exts = []
+        
+        # Separate valid and invalid extensions
+        for ext in exts_input:
+            if ext in SUPPORTED_TYPES.values():
+                valid_exts.append(ext)
+            else:
+                invalid_exts.append(ext)
+        
+        # Remove duplicates
+        invalid_exts = list(set(invalid_exts))
+        valid_exts = list(set(valid_exts))
+        
+        if invalid_exts:
+            print(f"Error: Invalid extensions detected: {', '.join(invalid_exts)}")
+            print("Supported extensions: " + ", ".join(sorted(set(SUPPORTED_TYPES.values()))))
+            sys.exit(1)
+        
+        selected_extensions = valid_exts if valid_exts else None
+    
+    extract_files(pcap_file, extensions=selected_extensions)
     print(f"\nExtraction complete. Valid files in: {os.path.abspath('extracted_files')}")
