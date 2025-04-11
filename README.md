@@ -1,8 +1,8 @@
 # minefile
+## pcap extractor
 Extract all files within an pcap file
 ### SUPPORTED_TYPES
-;;;
- {
+# Documents
     'application/pdf': 'pdf',
     'application/msword': 'doc',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
@@ -13,8 +13,7 @@ Extract all files within an pcap file
     'application/vnd.oasis.opendocument.text': 'odt',
     'application/rtf': 'rtf',
     'text/csv': 'csv',
-
-    # Images
+# Images
     'image/jpeg': 'jpg',
     'image/png': 'png',
     'image/gif': 'gif',
@@ -22,7 +21,7 @@ Extract all files within an pcap file
     'image/tiff': 'tiff',
     'image/webp': 'webp',
     
-    # Archives
+# Archives
     'application/zip': 'zip',
     'application/x-rar-compressed': 'rar',
     'application/x-7z-compressed': '7z',
@@ -31,7 +30,7 @@ Extract all files within an pcap file
     'application/x-bzip2': 'bz2',
     'application/x-xz': 'xz',
     
-    # Media
+# Media
     'audio/mpeg': 'mp3',
     'audio/wav': 'wav',
     'video/mp4': 'mp4',
@@ -39,7 +38,7 @@ Extract all files within an pcap file
     'video/x-matroska': 'mkv',
     'video/quicktime': 'mov',
     
-    # Executables
+# Executables
     'application/x-dosexec': 'exe',
     'application/x-msdownload': 'exe',
     'application/vnd.microsoft.portable-executable': 'exe',
@@ -48,12 +47,12 @@ Extract all files within an pcap file
     'application/x-mach-binary': 'mach-o',
     'application/x-shellscript': 'sh',
     
-    # System Files
+# System Files
     'application/vnd.debian.binary-package': 'deb',
     'application/x-rpm': 'rpm',
     'application/x-msi': 'msi',
     
-    # Development
+# Development
     'text/x-python': 'py',
     'application/x-java-archive': 'jar',
     'application/javascript': 'js',
@@ -62,19 +61,18 @@ Extract all files within an pcap file
     'application/json': 'json',
     'application/xml': 'xml',
     
-    # Certificates
+# Certificates
     'application/x-pem-file': 'pem',
     'application/x-x509-ca-cert': 'crt',
     
-    # Databases
+# Databases
     'application/x-sqlite3': 'db',
     
-    # Virtualization
+# Virtualization
     'application/x-virtualbox-ova': 'ova',
     'application/x-virtualbox-vdi': 'vdi',
     
-    # Miscellaneous
+# Miscellaneous
     'application/vnd.tcpdump.pcap': 'pcap',
     'application/x-bittorrent': 'torrent'
 }
-;;;
