@@ -7,7 +7,6 @@ import re
 from collections import defaultdict
 from io import BytesIO
 import sys
-
 # Initialize magic file type detector
 file_magic = magic.Magic(mime=True)
 
@@ -110,13 +109,12 @@ def reassemble_tcp_stream(packets):
             if TCP in pkt and Raw in pkt:
                 streams[session] += bytes(pkt[Raw])
     return streams
-
 def extract_files(pcap_file, output_dir="extracted_files/", extensions=None):
     pcap_base = os.path.splitext(os.path.basename(pcap_file))[0]
     output_dir = os.path.join(output_dir, pcap_base) + "/"
     os.makedirs(output_dir, exist_ok=True)
     file_count = defaultdict(int)
-    unique_hashes = set()  # Track unique file hashes
+    unique_hashes = set()
     
     packets = rdpcap(pcap_file)
     streams = reassemble_tcp_stream(packets)
@@ -147,7 +145,8 @@ def extract_files(pcap_file, output_dir="extracted_files/", extensions=None):
             with open(os.path.join(output_dir, out_name), 'wb') as f:
                 f.write(content)
             print(f"Extracted valid {file_ext.upper()} file: {out_name}")
-
+    
+    return sum(file_count.values()), output_dir  # Return count and output directory
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -162,14 +161,12 @@ if __name__ == "__main__":
         valid_exts = []
         invalid_exts = []
         
-        # Separate valid and invalid extensions
         for ext in exts_input:
             if ext in SUPPORTED_TYPES.values():
                 valid_exts.append(ext)
             else:
                 invalid_exts.append(ext)
         
-        # Remove duplicates
         invalid_exts = list(set(invalid_exts))
         valid_exts = list(set(valid_exts))
         
@@ -180,5 +177,10 @@ if __name__ == "__main__":
         
         selected_extensions = valid_exts if valid_exts else None
     
-    extract_files(pcap_file, extensions=selected_extensions)
-    print(f"\nExtraction complete. Valid files in: {os.path.abspath('extracted_files')}")
+    extracted_count, output_dir = extract_files(pcap_file, extensions=selected_extensions)
+    
+    if extracted_count == 0:
+        print("\nNo files were extracted from the PCAP.")
+        sys.exit(1)
+    else:
+        print(f"\nExtraction complete. {extracted_count} files extracted to: {os.path.abspath(output_dir)}")
