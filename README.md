@@ -1,7 +1,7 @@
 # minefile
 Extract all files within an pcap file
 ### SUPPORTED_TYPES
-```json
+;;;
 {
     # Documents
     'application/pdf': 'pdf',
@@ -78,4 +78,4 @@ Extract all files within an pcap file
     'application/vnd.tcpdump.pcap': 'pcap',
     'application/x-bittorrent': 'torrent'
 }
-```
+;;;
