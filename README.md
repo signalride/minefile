@@ -1,8 +1,14 @@
 # minefile
 Extract all files within an pcap file
 ```python
-python3 main.py file_name.pcap
+python3 main.py {file-name} {extension's} 
 ```
+
+### eXample
+```bash
+python3 main.py asd.pcap html,pdf
+```
+
 
 ### SUPPORTED_TYPES
 # Documents
