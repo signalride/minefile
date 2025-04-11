@@ -1,6 +1,9 @@
 # minefile
-## pcap extractor
 Extract all files within an pcap file
+```python
+python3 main.py file_name.pcap
+```
+
 ### SUPPORTED_TYPES
 # Documents
     'application/pdf': 'pdf',
