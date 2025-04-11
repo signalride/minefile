@@ -216,6 +216,5 @@ python3 main.py asd.pcap html pdf bmp
     'application/x-nzb': 'nzb',
     'application/x-cbr': 'cbr',
     'application/x-cbz': 'cbz'
-}
 
 
