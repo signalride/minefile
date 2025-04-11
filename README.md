@@ -2,8 +2,7 @@
 Extract all files within an pcap file
 ### SUPPORTED_TYPES
 ;;;
-{
-    # Documents
+ {
     'application/pdf': 'pdf',
     'application/msword': 'doc',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
